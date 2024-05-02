@@ -1,46 +1,31 @@
 #!/usr/bin/python3
-"""
-index
-"""
-
-from flask import jsonify
+"""Defines a status route for the HolbertonBnB API."""
 from api.v1.views import app_views
-
+from flask import jsonify
 from models import storage
 
 
-@app_views.route("/status", methods=['GET'], strict_slashes=False)
+@app_views.route("/status")
 def status():
+    """Returns the server status.
+
+    Returns:
+        JSON object with the current server status.
     """
-    status route
-    :return: response with json
-    """
-    data = {
-        "status": "OK"
-    }
-
-    resp = jsonify(data)
-    resp.status_code = 200
-
-    return resp
+    return jsonify({"status": "OK"})
 
 
-@app_views.route("/stats", methods=['GET'], strict_slashes=False)
+@app_views.route("/stats")
 def stats():
-    """
-    stats of all objs route
-    :return: json of all objs
-    """
-    data = {
+    """Retrives the count of each object type.
+
+    Returns:
+        JSON object with the number of objects by type."""
+    return jsonify({
         "amenities": storage.count("Amenity"),
         "cities": storage.count("City"),
         "places": storage.count("Place"),
         "reviews": storage.count("Review"),
         "states": storage.count("State"),
-        "users": storage.count("User"),
-    }
-
-    resp = jsonify(data)
-    resp.status_code = 200
-
-    return resp
+        "users": storage.count("User")
+    })
