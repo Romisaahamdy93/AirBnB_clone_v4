@@ -63,7 +63,7 @@ class TestDBStorage(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """Instantiate MySQLdb cursor."""
-        if type(models.storage) == DBStorage:
+        if isinstance(models.storage) == DBStorage:
             db = MySQLdb.connect(user=os.getenv("HBNB_MYSQL_USER"),
                                  passwd=os.getenv("HBNB_MYSQL_PWD"),
                                  db=os.getenv("HBNB_MYSQL_DB"))
@@ -80,7 +80,7 @@ class TestDBStorage(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         """Close MySQLdb cursor."""
-        if type(models.storage) == DBStorage:
+        if isinstance(models.storage) == DBStorage:
             cls.cursor.close()
             cls.storage._DBStorage__session.close()
 
